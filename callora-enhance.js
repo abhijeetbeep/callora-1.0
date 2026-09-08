@@ -493,6 +493,10 @@
      CALLORA NAVBAR LOGO — Ensure logo appears before CALLORA in navbar
      ----------------------------------------------------------------------- */
   function initNavbarLogo() {
+    const logoPath = window.location.pathname.startsWith('/projects/')
+      ? '../images/logo.png'
+      : 'images/logo.png';
+
     function ensureNavbarLogo() {
       const logoWrappers = document.querySelectorAll('.framer-19f5bx3, [data-framer-name="Logo Wrapper"]');
       logoWrappers.forEach((wrapper) => {
@@ -502,7 +506,7 @@
         let logoImg = wrapper.querySelector('.callora-logo');
         if (!logoImg) {
           logoImg = document.createElement('img');
-          logoImg.src = 'images/logo.png';
+          logoImg.src = logoPath;
           logoImg.alt = 'Callora Logo';
           logoImg.className = 'callora-logo';
           wrapper.insertBefore(logoImg, wrapper.firstChild);
