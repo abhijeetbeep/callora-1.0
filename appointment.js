@@ -211,7 +211,7 @@ async function sendEmail(data) {
   const templateParams = {
     from_name: data.fullName,
     from_email: data.email,
-    to_email: 'callora330@gmail.com',
+    to_email: 'hellocallora.ai@gmail.com',
     phone: data.phone,
     company_name: data.companyName,
     service: data.service,

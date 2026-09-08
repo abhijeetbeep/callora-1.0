@@ -1,0 +1,13 @@
+{
+  "name": "callora-1.0",
+  "version": "1.0.0",
+  "description": "Callora official website",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Callora",
+  "license": "ISC"
+}

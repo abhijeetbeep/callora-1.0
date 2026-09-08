@@ -1,12 +1,25 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-IN">
 
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Book Appointment – Callora</title>
-  <meta content="Book an appointment with Callora. Let's discuss your project needs — from web development and AI automation to BPO services."
+  <title>Book a Consultation | BPO & AI Solutions in Bhopal | Callora</title>
+  <meta content="Book an appointment with Callora in Bhopal, Madhya Pradesh. Discuss your BPO, AI automation, digital solutions, or hiring needs with our team."
     name="description" />
+  <link href="https://callora.co.in/appointment" rel="canonical" />
+  <!-- Open Graph / Facebook -->
+  <meta content="website" property="og:type" />
+  <meta content="Book a Consultation | BPO & AI Solutions in Bhopal | Callora" property="og:title" />
+  <meta content="Book an appointment with Callora in Bhopal, Madhya Pradesh. Discuss your BPO, AI automation, digital solutions, or hiring needs with our team."
+    property="og:description" />
+  <meta content="https://callora.co.in/appointment" property="og:url" />
+  <meta content="en_IN" property="og:locale" />
+  <!-- Twitter -->
+  <meta content="summary_large_image" name="twitter:card" />
+  <meta content="Book a Consultation | BPO & AI Solutions in Bhopal | Callora" name="twitter:title" />
+  <meta content="Book an appointment with Callora in Bhopal, Madhya Pradesh. Discuss your BPO, AI automation, digital solutions, or hiring needs with our team."
+    name="twitter:description" />
   <link href="https://framerusercontent.com/images/BI6T9R9j4t2faU90WzElBsYS41A.png"
     media="(prefers-color-scheme: light)" rel="icon" />
   <link href="https://framerusercontent.com/images/BI6T9R9j4t2faU90WzElBsYS41A.png"
@@ -105,7 +118,8 @@
       animation: slideDown 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .nav-logo {
+    .nav-logo,
+    .callora-brand {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -113,10 +127,14 @@
       color: var(--color-dark);
     }
 
-    .nav-logo img {
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
+    .nav-logo img,
+    .callora-logo {
+      height: 40px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
+      flex-shrink: 0;
     }
 
     .nav-logo-text {
@@ -698,6 +716,11 @@
         padding: 16px 24px;
       }
 
+      .nav-logo img,
+      .callora-logo {
+        height: 34px;
+      }
+
       .nav-logo-text {
         font-size: 18px;
       }
@@ -723,6 +746,11 @@
     @media (max-width: 480px) {
       .nav-bar {
         padding: 14px 16px;
+      }
+
+      .nav-logo img,
+      .callora-logo {
+        height: 30px;
       }
 
       .nav-logo-text {
@@ -810,9 +838,9 @@
 <body>
   <!-- Navigation -->
   <nav class="nav-bar">
-    <a href="index.html" class="nav-logo">
-      <img src="https://framerusercontent.com/images/BI6T9R9j4t2faU90WzElBsYS41A.png" alt="Callora" />
-      <span class="nav-logo-text">Callora</span>
+    <a href="index.html" class="nav-logo callora-brand">
+      <img src="images/logo.png" alt="Callora Logo" class="callora-logo" />
+      <span class="nav-logo-text brand-text">CALLORA</span>
     </a>
     <a href="index.html" class="nav-back">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

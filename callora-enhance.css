@@ -1,0 +1,460 @@
+/* ============================================================================
+   CALLORA PREMIUM ENHANCEMENT — CSS
+   All visual polish layered on top of the existing Framer export.
+   Zero modifications to existing styles; purely additive.
+   ============================================================================ */
+
+/* --------------------------------------------------------------------------
+   0. CUSTOM PROPERTIES — animation timing tokens
+   -------------------------------------------------------------------------- */
+:root {
+  --ce-ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ce-ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ce-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ce-dur-fast: 0.2s;
+  --ce-dur-normal: 0.45s;
+  --ce-dur-slow: 0.7s;
+  --ce-dur-reveal: 0.8s;
+  --ce-brand-blue: #0048f9;
+  --ce-brand-blue-glow: rgba(0, 72, 249, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   1. SMOOTH SCROLL (CSS-level, Lenis handles the JS side)
+   -------------------------------------------------------------------------- */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important; /* let Lenis handle it */
+}
+html {
+  scroll-behavior: smooth;
+}
+
+/* --------------------------------------------------------------------------
+   2. SCROLL PROGRESS INDICATOR — thin brand-blue bar at top
+   -------------------------------------------------------------------------- */
+.ce-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--ce-brand-blue), #4d8cff);
+  width: 0%;
+  z-index: 9999;
+  pointer-events: none;
+  transition: none;
+  will-change: width;
+  border-radius: 0 2px 2px 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. GLASSMORPHISM NAVBAR + SHRINK ON SCROLL
+   -------------------------------------------------------------------------- */
+/* The navbar wrapper — add glass on scroll */
+.framer-16tbhsi-container,
+.framer-riypkh-container {
+  transition: backdrop-filter var(--ce-dur-normal) var(--ce-ease-out-expo),
+              background-color var(--ce-dur-normal) var(--ce-ease-out-expo);
+}
+
+.navbar-scrolled .framer-16tbhsi-container,
+.navbar-scrolled .framer-riypkh-container {
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+/* The inner navbar frame — transition padding for shrink */
+.framer-g6SKM .framer-1k2zrzm {
+  transition: padding var(--ce-dur-normal) var(--ce-ease-out-expo),
+              background-color var(--ce-dur-normal) var(--ce-ease-out-expo),
+              box-shadow var(--ce-dur-normal) var(--ce-ease-out-expo);
+}
+
+.navbar-scrolled .framer-g6SKM .framer-1k2zrzm {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  background-color: rgba(255, 255, 255, 0.72) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+/* --------------------------------------------------------------------------
+   4. NOISE TEXTURE OVERLAY — very subtle grain
+   -------------------------------------------------------------------------- */
+.ce-noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.025;
+  /* Tiny 128×128 noise pattern as inline SVG */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* --------------------------------------------------------------------------
+   5. SUBTLE ANIMATED BLOBS — premium background lighting
+   -------------------------------------------------------------------------- */
+.ce-blob-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.ce-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.06;
+  will-change: transform;
+}
+
+.ce-blob--1 {
+  width: 600px;
+  height: 600px;
+  background: var(--ce-brand-blue);
+  top: -10%;
+  right: -5%;
+  animation: ce-blob-drift-1 25s ease-in-out infinite alternate;
+}
+
+.ce-blob--2 {
+  width: 500px;
+  height: 500px;
+  background: #6c63ff;
+  bottom: 20%;
+  left: -8%;
+  animation: ce-blob-drift-2 30s ease-in-out infinite alternate;
+}
+
+.ce-blob--3 {
+  width: 400px;
+  height: 400px;
+  background: #00c6ff;
+  top: 50%;
+  right: 30%;
+  animation: ce-blob-drift-3 20s ease-in-out infinite alternate;
+}
+
+/* --------------------------------------------------------------------------
+   6. SECTION REVEAL ANIMATIONS
+   -------------------------------------------------------------------------- */
+.ce-reveal {
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity var(--ce-dur-reveal) var(--ce-ease-out-expo),
+              transform var(--ce-dur-reveal) var(--ce-ease-out-expo);
+}
+
+/* Fade up (default) */
+.ce-reveal--up {
+  transform: translateY(40px);
+}
+
+/* Fade from left */
+.ce-reveal--left {
+  transform: translateX(-50px);
+}
+
+/* Fade from right */
+.ce-reveal--right {
+  transform: translateX(50px);
+}
+
+/* Scale up (hero) */
+.ce-reveal--scale {
+  transform: scale(0.96);
+}
+
+/* Revealed state */
+.ce-revealed {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Stagger delays for child cards */
+.ce-stagger-1 { transition-delay: 0s; }
+.ce-stagger-2 { transition-delay: 0.08s; }
+.ce-stagger-3 { transition-delay: 0.16s; }
+.ce-stagger-4 { transition-delay: 0.24s; }
+.ce-stagger-5 { transition-delay: 0.32s; }
+.ce-stagger-6 { transition-delay: 0.40s; }
+
+/* --------------------------------------------------------------------------
+   7. SERVICE CARD HOVER ENHANCEMENTS
+   Service items: .framer-zMINs.framer-bud0sv (accordion rows)
+   -------------------------------------------------------------------------- */
+.framer-zMINs.framer-bud0sv {
+  transition: box-shadow var(--ce-dur-normal) var(--ce-ease-out-expo),
+              transform var(--ce-dur-normal) var(--ce-ease-out-expo),
+              border-color var(--ce-dur-normal) var(--ce-ease-out-expo);
+}
+
+.framer-zMINs.framer-bud0sv:hover {
+  box-shadow: 0 4px 24px var(--ce-brand-blue-glow),
+              0 1px 4px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+/* Plus icon rotation on hover */
+.framer-zMINs.framer-bud0sv .framer-te3rug-container {
+  transition: transform var(--ce-dur-normal) var(--ce-ease-spring);
+}
+
+.framer-zMINs.framer-bud0sv:hover .framer-te3rug-container {
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* --------------------------------------------------------------------------
+   8. BUTTON ENHANCEMENTS — ripple + magnetic + focus
+   -------------------------------------------------------------------------- */
+/* CTA buttons: .framer-2Djyo (hero), .framer-ftTJY (link buttons) */
+
+/* Magnetic hover — transform set by JS, CSS handles the transition */
+.framer-2Djyo,
+.framer-ftTJY {
+  transition: transform var(--ce-dur-fast) var(--ce-ease-out-quart),
+              box-shadow var(--ce-dur-normal) var(--ce-ease-out-expo);
+}
+
+/* Accessible focus states */
+.framer-2Djyo:focus-visible,
+.framer-ftTJY:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--ce-brand-blue);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Ripple container */
+.ce-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(0);
+  animation: ce-ripple-expand 0.6s var(--ce-ease-out-expo) forwards;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Arrow slide on hover for link buttons */
+.framer-ftTJY .framer-1v79nee-container {
+  transition: transform var(--ce-dur-normal) var(--ce-ease-spring);
+}
+
+.framer-ftTJY:hover .framer-1v79nee-container {
+  transform: translate(4px, -4px) !important;
+}
+
+/* Bottom border grow animation on link buttons */
+.framer-ftTJY .framer-303ysz {
+  transition: transform var(--ce-dur-normal) var(--ce-ease-out-expo);
+  transform-origin: left center;
+  transform: scaleX(0.3);
+}
+
+.framer-ftTJY:hover .framer-303ysz {
+  transform: scaleX(1);
+}
+
+/* --------------------------------------------------------------------------
+   9. PORTFOLIO / PROJECT CARD ENHANCEMENTS
+   Project cards: .framer-yYFu6.framer-8ucjap
+   -------------------------------------------------------------------------- */
+/* Image zoom on hover */
+.framer-yYFu6 .framer-ef5mrj {
+  overflow: hidden;
+}
+
+.framer-yYFu6 .framer-osl6bh-container > div > div {
+  transition: transform 0.6s var(--ce-ease-out-expo) !important;
+}
+
+.framer-yYFu6:hover .framer-osl6bh-container > div > div {
+  transform: scale(1.06) !important;
+}
+
+/* Project title subtle lift */
+.framer-yYFu6 .framer-1ebhnw4 {
+  transition: transform var(--ce-dur-normal) var(--ce-ease-out-expo);
+}
+
+.framer-yYFu6:hover .framer-1ebhnw4 {
+  transform: translateY(-2px);
+}
+
+/* Tag pills subtle glow on card hover */
+.framer-yYFu6:hover .framer-HYcPr[data-border="true"] {
+  box-shadow: 0 0 0 1px var(--ce-brand-blue-glow);
+  transition: box-shadow var(--ce-dur-normal) var(--ce-ease-out-expo);
+}
+
+/* --------------------------------------------------------------------------
+   10. PROCESS / STEP CARDS — the dark accordion cards
+   .framer-wUZ30 [data-framer-name="Step 1"], etc.
+   -------------------------------------------------------------------------- */
+.framer-wUZ30 [data-border="true"][data-framer-name^="Step"] {
+  transition: border-color var(--ce-dur-normal) var(--ce-ease-out-expo),
+              box-shadow var(--ce-dur-normal) var(--ce-ease-out-expo),
+              transform var(--ce-dur-normal) var(--ce-ease-out-expo);
+}
+
+.framer-wUZ30 [data-border="true"][data-framer-name^="Step"]:hover {
+  box-shadow: 0 8px 32px rgba(0, 72, 249, 0.12),
+              0 0 0 1px rgba(0, 72, 249, 0.2);
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   11. CTA SECTION — subtle entrance
+   -------------------------------------------------------------------------- */
+#cta {
+  position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   12. ACTIVE SECTION NAV INDICATOR
+   -------------------------------------------------------------------------- */
+.ce-nav-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--ce-brand-blue);
+  border-radius: 1px;
+  transition: left var(--ce-dur-normal) var(--ce-ease-spring),
+              width var(--ce-dur-normal) var(--ce-ease-spring);
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   KEYFRAMES
+   -------------------------------------------------------------------------- */
+@keyframes ce-blob-drift-1 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-80px, 60px) scale(1.1); }
+}
+
+@keyframes ce-blob-drift-2 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(60px, -50px) scale(0.9); }
+}
+
+@keyframes ce-blob-drift-3 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-40px, 40px) scale(1.15); }
+}
+
+@keyframes ce-ripple-expand {
+  0% { transform: scale(0); opacity: 0.5; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   13. PREFERS-REDUCED-MOTION — disable all custom animations
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ce-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .ce-blob {
+    animation: none !important;
+    display: none !important;
+  }
+
+  .ce-scroll-progress {
+    display: none !important;
+  }
+
+  .framer-zMINs.framer-bud0sv,
+  .framer-yYFu6 .framer-osl6bh-container > div > div,
+  .framer-2Djyo,
+  .framer-ftTJY,
+  .framer-ftTJY .framer-1v79nee-container,
+  .framer-ftTJY .framer-303ysz,
+  .framer-wUZ30 [data-border="true"][data-framer-name^="Step"] {
+    transition: none !important;
+  }
+
+  .navbar-scrolled .framer-g6SKM .framer-1k2zrzm {
+    transition: none !important;
+  }
+
+  .ce-ripple {
+    display: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   14. MOBILE REFINEMENTS — reduce motion intensity on smaller screens
+   -------------------------------------------------------------------------- */
+@media (max-width: 699px) {
+  .ce-blob {
+    opacity: 0.03;
+    filter: blur(80px);
+  }
+
+  .ce-blob--1 { width: 300px; height: 300px; }
+  .ce-blob--2 { width: 250px; height: 250px; }
+  .ce-blob--3 { display: none; }
+
+  .ce-reveal--left,
+  .ce-reveal--right {
+    transform: translateY(30px); /* simplify to vertical on mobile */
+  }
+
+  .ce-noise {
+    opacity: 0.015;
+  }
+
+  .framer-zMINs.framer-bud0sv:hover {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   15. CALLORA NAVBAR BRANDING STYLES
+   -------------------------------------------------------------------------- */
+.callora-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  text-decoration: none;
+}
+
+.callora-logo {
+  height: 40px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .callora-logo {
+    height: 34px;
+  }
+}
+
+@media (max-width: 480px) {
+  .callora-logo {
+    height: 30px;
+  }
+}
+
+
